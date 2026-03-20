@@ -1,0 +1,553 @@
+<!DOCTYPE html>
+<html lang="zh-TW" class="scroll-smooth">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>嘉義縣民宿設立輔導指南</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+    <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+    <script>
+        tailwind.config = {
+            theme: {
+                extend: {
+                    colors: {
+                        brand: {
+                            50: '#fdf8f6',
+                            100: '#f2e8e5',
+                            500: '#8c6b5d',
+                            600: '#735244',
+                            800: '#4a362d',
+                            900: '#2d5a27', 
+                        }
+                    },
+                    fontFamily: {
+                        sans: ['"Noto Sans TC"', 'sans-serif'],
+                    }
+                }
+            }
+        }
+    </script>
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Noto+Sans+TC:wght@300;400;500;700;900&display=swap');
+        
+        body {
+            font-family: 'Noto Sans TC', sans-serif;
+            background-color: #fdfbf7;
+            color: #333;
+        }
+
+        .chart-container {
+            position: relative;
+            width: 100%;
+            max-width: 900px;
+            margin-left: auto;
+            margin-right: auto;
+            height: 420px;
+            max-height: 500px;
+        }
+
+        @media (min-width: 768px) {
+            .chart-container {
+                height: 460px;
+            }
+        }
+
+        .tab-btn.active {
+            background-color: #2d5a27;
+            color: white;
+            border-color: #2d5a27;
+        }
+        
+        .timeline-step.active .step-circle {
+            background-color: #2d5a27;
+            color: white;
+            transform: scale(1.1);
+        }
+        
+        .timeline-step.active .step-line {
+            background-color: #2d5a27;
+        }
+
+        .fade-in {
+            animation: fadeIn 0.4s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(10px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        .hero-pattern {
+            background-color: #fdfbf7;
+            background-image: radial-gradient(#d4813a 0.5px, transparent 0.5px), radial-gradient(#d4813a 0.5px, #fdfbf7 0.5px);
+            background-size: 20px 20px;
+            background-position: 0 0, 10px 10px;
+        }
+    </style>
+</head>
+<body class="antialiased">
+
+    <nav class="fixed w-full bg-white/90 backdrop-blur-md shadow-sm z-50 transition-all duration-300">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="flex justify-between items-center h-16">
+                <div class="flex-shrink-0 flex items-center gap-2">
+                    <span class="text-2xl">🏡</span>
+                    <span class="font-bold text-brand-900 text-lg md:text-xl tracking-wider">嘉義縣民宿設立輔導</span>
+                </div>
+                <div class="hidden md:flex space-x-8">
+                    <a href="#types" class="text-gray-600 hover:text-brand-900 transition-colors font-medium">適用類型</a>
+                    <a href="#stages" class="text-gray-600 hover:text-brand-900 transition-colors font-medium">申請四大階段</a>
+                    <a href="#value" class="text-gray-600 hover:text-brand-900 transition-colors font-medium">團隊服務</a>
+                </div>
+                <div>
+                    <a href="#cta" class="bg-brand-900 text-white px-5 py-2 rounded-full hover:bg-green-800 transition-colors text-sm font-bold shadow-md">立即評估</a>
+                </div>
+            </div>
+        </div>
+    </nav>
+
+    <header class="pt-28 pb-16 md:pt-40 md:pb-24 hero-pattern relative overflow-hidden">
+        <div class="max-w-5xl mx-auto px-4 sm:px-6 lg:px-8 text-center relative z-10">
+            <h1 class="text-4xl md:text-5xl lg:text-6xl font-black text-gray-900 mb-6 leading-tight">
+                從零到一，打造您的<br class="hidden md:block" />
+                <span class="text-transparent bg-clip-text bg-gradient-to-r from-brand-900 to-green-600">合法夢想民宿</span>
+            </h1>
+            <p class="mt-4 text-xl text-gray-700 max-w-3xl mx-auto font-medium leading-relaxed">
+                民宿申請手續繁雜、法規嚴格？無論您在平地老屋，還是阿里山原鄉，專業團隊手把手帶您破除申請卡關！
+            </p>
+            <div class="mt-10 flex flex-col sm:flex-row gap-4 justify-center">
+                <!-- 填寫意願調查表連結 -->
+                <a href="https://forms.gle/dCdgAvCDHssofse29" target="_blank" class="bg-[#d4813a] text-white px-8 py-4 rounded-full text-lg font-bold hover:bg-[#b86d2f] transition-all shadow-lg transform hover:-translate-y-1">
+                    填寫輔導意願調查表 📝
+                </a>
+                <!-- 報名說明會連結 -->
+                <a href="https://forms.gle/hMHFhrbX9K68Rz8E8" target="_blank" class="bg-white text-brand-900 border-2 border-brand-900 px-8 py-4 rounded-full text-lg font-bold hover:bg-brand-50 transition-all shadow-sm">
+                    報名民宿申請登記輔導說明會 ↓
+                </a>
+            </div>
+        </div>
+    </header>
+
+    <section class="py-16 bg-white border-t border-gray-100">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">嘉義縣合法民宿現況</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto">了解目前各鄉鎮市合法民宿的分佈概況，掌握市場脈動。本團隊致力於協助更多潛力區域（如朴子市）及原鄉部落取得合法資格。</p>
+            </div>
+            
+            <div class="chart-container">
+                <canvas id="distributionChart"></canvas>
+            </div>
+            <p class="text-center text-sm text-gray-400 mt-4">資料來源：嘉義縣民宿家數統計表（2026年02月，列印日期：2026-03-18）</p>
+        </div>
+    </section>
+
+    <section id="types" class="py-20 bg-brand-50">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-12">
+                <h2 class="text-3xl font-bold text-gray-900">您屬於哪一種？</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto text-lg">嘉義縣幅員廣大，平地與山區的法規與挑戰截然不同。本計畫採「雙軌制輔導」，請選擇您的物件類型以查看專屬資訊。</p>
+            </div>
+
+            <div class="flex justify-center mb-8">
+                <div class="inline-flex bg-white rounded-full p-1 shadow-sm border border-gray-200">
+                    <button id="btn-plains" class="tab-btn active px-8 py-3 rounded-full text-lg font-bold transition-colors" onclick="switchTrack('plains')">
+                        🏠 平地普通民宿
+                    </button>
+                    <button id="btn-mountain" class="tab-btn px-8 py-3 rounded-full text-lg font-bold text-gray-600 hover:text-brand-900 transition-colors" onclick="switchTrack('mountain')">
+                        ⛰️ 阿里山原鄉民宿
+                    </button>
+                </div>
+            </div>
+
+            <div class="bg-white rounded-2xl shadow-xl overflow-hidden border border-gray-100 min-h-[400px]">
+                <div id="content-plains" class="p-8 md:p-12 fade-in">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-4xl">🏘️</span>
+                        <h3 class="text-2xl font-bold text-brand-900">平地普通民宿</h3>
+                    </div>
+                    <p class="text-gray-500 mb-8 font-medium">以朴子市人文歷史風貌區為例</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-brand-50 p-6 rounded-xl border-l-4 border-[#d4813a]">
+                            <h4 class="font-bold text-lg mb-2 text-gray-800">🎯 適用對象</h4>
+                            <p class="text-gray-600 leading-relaxed">位於平地都市計畫區或非都市土地，具備住宅或農舍資格的建築。</p>
+                        </div>
+                        <div class="bg-brand-50 p-6 rounded-xl border-l-4 border-brand-900">
+                            <h4 class="font-bold text-lg mb-2 text-gray-800">📋 核心規範</h4>
+                            <ul class="text-gray-600 space-y-2 list-disc list-inside">
+                                <li>客房數 8 間以下</li>
+                                <li>總樓地板面積 240 平方公尺以下</li>
+                                <li>必須由「建築物實際使用人」親自經營</li>
+                            </ul>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                            <h4 class="font-bold text-lg mb-2 text-gray-800">⚠️ 最大侷限</h4>
+                            <p class="text-gray-600 leading-relaxed">建築物用途必須符合規定（<strong class="text-red-600">不可有違建擴大營業</strong>），且客房不得設置於地下室。</p>
+                        </div>
+                    </div>
+                </div>
+
+                <div id="content-mountain" class="p-8 md:p-12 hidden">
+                    <div class="flex items-center gap-4 mb-6">
+                        <span class="text-4xl">🏔️</span>
+                        <h3 class="text-2xl font-bold text-brand-900">阿里山轄內原鄉民宿</h3>
+                    </div>
+                    <p class="text-gray-500 mb-8 font-medium">專屬原住民保留地之特殊輔導</p>
+                    
+                    <div class="grid md:grid-cols-3 gap-8">
+                        <div class="bg-brand-50 p-6 rounded-xl border-l-4 border-[#d4813a]">
+                            <h4 class="font-bold text-lg mb-2 text-gray-800">🎯 適用對象</h4>
+                            <p class="text-gray-600 leading-relaxed">位於阿里山鄉等原住民保留地，且身分為原住民之申請人。</p>
+                        </div>
+                        <div class="bg-brand-50 p-6 rounded-xl border-l-4 border-brand-900">
+                            <h4 class="font-bold text-lg mb-2 text-gray-800">📋 核心規範</h4>
+                            <p class="text-gray-600 leading-relaxed">需符合原住民保留地開發管理辦法，以及偏遠地區相關建築/土地放寬規定。</p>
+                        </div>
+                        <div class="bg-red-50 p-6 rounded-xl border-l-4 border-red-500">
+                            <h4 class="font-bold text-lg mb-2 text-gray-800">⚠️ 最大侷限</h4>
+                            <ul class="text-gray-600 space-y-2 list-disc list-inside">
+                                <li><strong class="text-red-600">無建築執照</strong>歷史建物</li>
+                                <li>土地產權持分複雜</li>
+                                <li>需取得部落同意等特有問題</li>
+                            </ul>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="stages" class="py-20 bg-white">
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold text-gray-900">申請四大階段</h2>
+                <p class="mt-4 text-gray-600 max-w-2xl mx-auto text-lg">設立合法民宿如同破關打怪。點擊下方各階段，預先了解您可能會遇到的卡關痛點，以及輔導團隊為您準備的通關秘笈。</p>
+            </div>
+
+            <div class="flex flex-col lg:flex-row gap-12">
+                <div class="lg:w-1/3 relative">
+                    <div class="absolute left-6 top-0 bottom-0 w-1 bg-gray-200 rounded"></div>
+                    
+                    <div class="space-y-6">
+                        <div class="timeline-step active relative flex items-center cursor-pointer group" onclick="showStage(1)">
+                            <div class="step-circle w-12 h-12 rounded-full bg-brand-900 text-white flex items-center justify-center font-bold text-xl relative z-10 transition-transform shadow-md">1</div>
+                            <div class="ml-6 pl-4 py-2 bg-gray-50 rounded-lg group-hover:bg-brand-50 flex-grow transition-colors border border-gray-100">
+                                <h4 class="font-bold text-gray-900 text-lg">前置評估與準備</h4>
+                            </div>
+                        </div>
+
+                        <div class="timeline-step relative flex items-center cursor-pointer group" onclick="showStage(2)">
+                            <div class="step-circle w-12 h-12 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-xl relative z-10 transition-transform shadow-sm">2</div>
+                            <div class="ml-6 pl-4 py-2 bg-gray-50 rounded-lg group-hover:bg-brand-50 flex-grow transition-colors border border-gray-100">
+                                <h4 class="font-bold text-gray-900 text-lg">書面審查與會辦</h4>
+                            </div>
+                        </div>
+
+                        <div class="timeline-step relative flex items-center cursor-pointer group" onclick="showStage(3)">
+                            <div class="step-circle w-12 h-12 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-xl relative z-10 transition-transform shadow-sm">3</div>
+                            <div class="ml-6 pl-4 py-2 bg-gray-50 rounded-lg group-hover:bg-brand-50 flex-grow transition-colors border border-gray-100">
+                                <h4 class="font-bold text-gray-900 text-lg">實地會勘 </h4>
+                            </div>
+                        </div>
+
+                        <div class="timeline-step relative flex items-center cursor-pointer group" onclick="showStage(4)">
+                            <div class="step-circle w-12 h-12 rounded-full bg-gray-300 text-gray-600 flex items-center justify-center font-bold text-xl relative z-10 transition-transform shadow-sm">4</div>
+                            <div class="ml-6 pl-4 py-2 bg-gray-50 rounded-lg group-hover:bg-brand-50 flex-grow transition-colors border border-gray-100">
+                                <h4 class="font-bold text-gray-900 text-lg">核准設立與領證</h4>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="lg:w-2/3">
+                    <div id="stage-details" class="bg-white rounded-2xl shadow-xl border border-gray-100 p-8 min-h-[450px]">
+                    </div>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <section id="value" class="py-20 bg-brand-900 text-white hero-pattern relative">
+        <div class="absolute inset-0 bg-brand-900/95"></div>
+        <div class="max-w-6xl mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
+            <div class="text-center mb-16">
+                <h2 class="text-3xl font-bold mb-4">為什麼您需要輔導團隊？</h2>
+                <p class="text-brand-100 max-w-2xl mx-auto text-lg">民宿申請牽涉觀光、建管、消防、地政四大領域，自己跑流程往往因為退件而心灰意冷。我們提供專業的後盾：</p>
+            </div>
+
+            <div class="grid md:grid-cols-2 lg:grid-cols-4 gap-8">
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-colors">
+                    <div class="text-5xl mb-4">🔍</div>
+                    <h3 class="text-xl font-bold mb-3">免費初步評估</h3>
+                    <p class="text-brand-50 leading-relaxed">幫您把脈土地與建物條件，告訴您「能不能做」、「要花多少成本改裝」，避免盲目投資。</p>
+                </div>
+                
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-colors">
+                    <div class="text-5xl mb-4">🤝</div>
+                    <h3 class="text-xl font-bold mb-3">原鄉專案處理</h3>
+                    <p class="text-brand-50 leading-relaxed">熟悉阿里山原住民保留地法規，協助解決歷史遺留的無照建物、結構安全鑑定等複雜問題。</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-colors">
+                    <div class="text-5xl mb-4">📝</div>
+                    <h3 class="text-xl font-bold mb-3">代寫與圖說指導</h3>
+                    <p class="text-brand-50 leading-relaxed">不擅長文書處理與畫圖？我們提供清晰的標準化圖面繪製範本與表單指引，輕鬆搞定紙上作業。</p>
+                </div>
+
+                <div class="bg-white/10 backdrop-blur-sm p-8 rounded-2xl border border-white/20 hover:bg-white/20 transition-colors">
+                    <div class="text-5xl mb-4">🛡️</div>
+                    <h3 class="text-xl font-bold mb-3">會勘前衝刺指導</h3>
+                    <p class="text-brand-50 leading-relaxed">實地勘查前的「模擬檢查」，確保消防設施到位，不再因為小細節被退件，大幅降低重測率。</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer id="cta" class="bg-gray-900 text-white py-16 text-center">
+        <div class="max-w-4xl mx-auto px-4 sm:px-6 lg:px-8">
+            <h2 class="text-3xl md:text-4xl font-bold mb-6">準備好讓您的空間迎接世界的旅人了嗎？</h2>
+            <p class="text-xl text-gray-400 mb-10">立即了解您的房屋是否具備民宿潛力！專業輔導名額有限，請盡速登記。</p>
+            
+            <!-- 填寫意願調查表連結 -->
+            <a href="https://forms.gle/dCdgAvCDHssofse29" target="_blank" class="inline-block bg-[#d4813a] text-white px-10 py-5 rounded-full text-xl font-bold hover:bg-[#b86d2f] transition-all shadow-xl transform hover:-translate-y-1 mb-12">
+                📋 填寫輔導申請意願調查表
+            </a>
+            
+            <div class="border-t border-gray-800 pt-8 flex flex-col md:flex-row justify-between items-center text-sm text-gray-500 gap-4">
+                <div class="flex items-center gap-2">
+                    <span>指導單位：嘉義縣文化觀光局</span>
+                    <span class="hidden md:inline">|</span>
+                    <span>執行單位：百立管理顧問公司</span>
+                </div>
+                <div class="flex gap-4">
+                    <span>📞 專線: 05-362-xxxx</span>
+                    <span>✉️ Email: service@example.com</span>
+                </div>
+            </div>
+        </div>
+    </footer>
+
+    <script>
+        const stageData = {
+            1: {
+                title: "第一階段：前置評估與文件準備",
+                mission: "確認土地與建物是否符合法規，備妥申請書、身分證明、土地/建物謄本、地籍圖等。",
+                painPoints: [
+                    { label: "平地常見", text: "發現家裡有違建（加蓋、外推），或者建築物使用執照上的用途不是「住宅」。" },
+                    { label: "阿里山常見", text: "找不到早期的建築結構證明、土地是多人共同持分（需所有人同意書），或根本沒有建物所有權狀。" }
+                ],
+                solution: "輔導團隊協助調閱圖資，確認是否適用「偏遠地區無使用執照建築物」之放寬條款或安排結構安全鑑定。"
+            },
+            2: {
+                title: "第二階段：書面審查與跨局處會辦",
+                mission: "將資料送交文化觀光局，並會辦建管、地政、消防、農業（若為農舍）等單位進行圖面與書面審查。",
+                painPoints: [
+                    { label: "共通問題", text: "圖面與現況不符（例如：原本圖面上是客廳，現在為了做民宿改成了隔間客房，未重新申請變更）。" },
+                    { label: "共通問題", text: "未投保足額的「公共意外責任險」，保額不符地方政府最新規定。" }
+                ],
+                solution: "提供標準化圖面繪製範例指導，並協助確認保單內容與保險額度完全符合嘉義縣政府規定。"
+            },
+            3: {
+                title: "第三階段：實地會勘",
+                mission: "縣府相關局處人員親自到現場，核對書面資料與實際狀況是否一致，特別是「消防安全」與「建築安全」。",
+                painPoints: [
+                    { label: "消防違規", text: "滅火器過期、緊急照明燈不亮、火警探測器未依規定安裝、沒有清楚的避難逃生路線圖。" },
+                    { label: "現況違規", text: "現場發現擴大營業：房間數比申請的還多，或是偷偷使用地下室/違建空間當客房（此類必須簽署無擴大營業切結書）。" }
+                ],
+                solution: "輔導團隊會在正式會勘前親赴現場進行「模擬檢查」，確保所有消防設施運作正常且標示到位，預先排除退件因素。"
+            },
+            4: {
+                title: "第四階段：核准設立與領證",
+                mission: "會勘順利通過後，繳納規費（登記證 1,000 元、專用標識牌 2,000 元），正式領取合法民宿登記證。",
+                painPoints: [
+                    { label: "後續疏忽", text: "以為拿到證照就結束了，忽略了後續每年需定期申報營運報表，以及消防設備的年度檢修申報，導致被開罰。" }
+                ],
+                solution: "建立專屬輔導群組，提供後續營運指導與各項定期申報的提醒服務，讓您安心經營。"
+            }
+        };
+
+        function switchTrack(track) {
+            document.querySelectorAll('.tab-btn').forEach(btn => {
+                btn.classList.remove('active', 'bg-brand-900', 'text-white', 'border-brand-900');
+                btn.classList.add('text-gray-600');
+            });
+            
+            const activeBtn = document.getElementById(`btn-${track}`);
+            activeBtn.classList.remove('text-gray-600');
+            activeBtn.classList.add('active');
+
+            document.getElementById('content-plains').classList.add('hidden');
+            document.getElementById('content-mountain').classList.add('hidden');
+            
+            const content = document.getElementById(`content-${track}`);
+            content.classList.remove('hidden');
+            
+            content.classList.remove('fade-in');
+            void content.offsetWidth;
+            content.classList.add('fade-in');
+        }
+
+        function showStage(stageNumber) {
+            document.querySelectorAll('.timeline-step').forEach(step => {
+                step.classList.remove('active');
+                step.querySelector('.step-circle').classList.replace('bg-brand-900', 'bg-gray-300');
+                step.querySelector('.step-circle').classList.replace('text-white', 'text-gray-600');
+            });
+
+            const activeStep = document.querySelectorAll('.timeline-step')[stageNumber - 1];
+            activeStep.classList.add('active');
+            activeStep.querySelector('.step-circle').classList.replace('bg-gray-300', 'bg-brand-900');
+            activeStep.querySelector('.step-circle').classList.replace('text-gray-600', 'text-white');
+
+            const data = stageData[stageNumber];
+            const container = document.getElementById('stage-details');
+            
+            let painPointsHtml = data.painPoints.map(pp => `
+                <li class="flex items-start gap-3 mb-4 last:mb-0">
+                    <span class="text-xl shrink-0 mt-1">💥</span>
+                    <div>
+                        <span class="inline-block bg-red-100 text-red-800 text-xs px-2 py-1 rounded font-bold mb-1">${pp.label}</span>
+                        <p class="text-gray-700 leading-relaxed">${pp.text}</p>
+                    </div>
+                </li>
+            `).join('');
+
+            container.innerHTML = `
+                <div class="fade-in h-full flex flex-col">
+                    <h3 class="text-2xl font-bold text-brand-900 mb-6 pb-4 border-b border-gray-100 flex items-center gap-3">
+                        <span class="bg-brand-100 text-brand-900 w-10 h-10 rounded-full flex items-center justify-center text-lg">Stage ${stageNumber}</span>
+                        ${data.title.split('：')[1] || data.title}
+                    </h3>
+                    
+                    <div class="mb-8">
+                        <h4 class="font-bold text-gray-800 mb-2 flex items-center gap-2">
+                            <span class="text-brand-900">📌</span> 主要任務
+                        </h4>
+                        <p class="text-gray-600 leading-relaxed bg-gray-50 p-4 rounded-lg border border-gray-100">${data.mission}</p>
+                    </div>
+
+                    <div class="mb-8 flex-grow">
+                        <h4 class="font-bold text-gray-800 mb-4 flex items-center gap-2">
+                            <span class="text-red-500">🚨</span> 常見卡關與侷限
+                        </h4>
+                        <ul class="bg-red-50/50 p-5 rounded-lg border border-red-100">
+                            ${painPointsHtml}
+                        </ul>
+                    </div>
+
+                    <div class="bg-brand-50 p-5 rounded-xl border border-brand-200 mt-auto">
+                        <h4 class="font-bold text-brand-900 mb-2 flex items-center gap-2">
+                            <span class="text-yellow-500 text-xl">💡</span> 團隊解法
+                        </h4>
+                        <p class="text-gray-800 leading-relaxed font-medium">${data.solution}</p>
+                    </div>
+                </div>
+            `;
+        }
+
+        function initChart() {
+            const ctx = document.getElementById('distributionChart').getContext('2d');
+            
+            // ✅ 資料來源：嘉義縣民宿家數統計表（2026年02月）—— 合法營業家數
+            const labels = [
+                '番路鄉', '梅山鄉', '竹崎鄉', '阿里山鄉', '中埔鄉',
+                '民雄鄉', '布袋鎮', '新港鄉', '水上鄉', '大林鎮',
+                '六腳鄉', '東石鄉', '大埔鄉', '太保市', '溪口鄉',
+                '鹿草鄉', '朴子市', '義竹鄉'
+            ];
+            const dataValues = [67, 61, 71, 18, 49, 26, 17, 7, 8, 4, 3, 6, 1, 1, 1, 2, 0, 0];
+
+            // 顏色：山區鄉鎮用深綠，平地用中綠，潛力區（朴子/義竹=0）用橘色
+            const mountainTownships = ['番路鄉', '梅山鄉', '竹崎鄉', '阿里山鄉'];
+            const zeroTownships = ['朴子市', '義竹鄉'];
+
+            const backgroundColors = labels.map(label => {
+                if (zeroTownships.includes(label)) return '#d4813a';
+                if (mountainTownships.includes(label)) return '#2d5a27';
+                return '#6b9d62';
+            });
+
+            new Chart(ctx, {
+                type: 'bar',
+                data: {
+                    labels: labels,
+                    datasets: [{
+                        label: '合法營業民宿家數',
+                        data: dataValues,
+                        backgroundColor: backgroundColors,
+                        borderRadius: 6,
+                        borderSkipped: false,
+                    }]
+                },
+                options: {
+                    responsive: true,
+                    maintainAspectRatio: false,
+                    plugins: {
+                        legend: {
+                            display: false
+                        },
+                        tooltip: {
+                            backgroundColor: 'rgba(255, 255, 255, 0.95)',
+                            titleColor: '#333',
+                            bodyColor: '#666',
+                            borderColor: '#ddd',
+                            borderWidth: 1,
+                            padding: 12,
+                            displayColors: false,
+                            callbacks: {
+                                label: function(context) {
+                                    if (context.raw === 0) {
+                                        return `數量: ${context.raw} 家 ⭐ 輔導重點潛力區`;
+                                    }
+                                    return `合法營業: ${context.raw} 家`;
+                                }
+                            }
+                        }
+                    },
+                    scales: {
+                        y: {
+                            beginAtZero: true,
+                            grid: {
+                                color: '#f0f0f0',
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                color: '#888',
+                                font: { family: "'Noto Sans TC', sans-serif" }
+                            },
+                            title: {
+                                display: true,
+                                text: '合法營業家數（家）',
+                                color: '#888',
+                                font: { family: "'Noto Sans TC', sans-serif", size: 12 }
+                            }
+                        },
+                        x: {
+                            grid: {
+                                display: false,
+                                drawBorder: false,
+                            },
+                            ticks: {
+                                color: '#555',
+                                font: { family: "'Noto Sans TC', sans-serif", weight: 'bold', size: 11 },
+                                maxRotation: 45,
+                                minRotation: 30
+                            }
+                        }
+                    },
+                    animation: {
+                        duration: 1500,
+                        easing: 'easeOutQuart'
+                    }
+                }
+            });
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            showStage(1);
+            initChart();
+        });
+    </script>
+</body>
+</html>
